@@ -17,4 +17,11 @@ router.post("/create", async (req, resp) => {
     let data = await employee.deleteOne(req.params);
     resp.send(data);
   });
+  router.put("/update/:_id", async (req, resp) => {
+    console.log(req.params);
+    let data = await Product.updateOne(req.params, 
+      { $set: req.body });
+    resp.send(data);
+  });
+  
 module.exports = router;
