@@ -8,13 +8,14 @@ app.use(body_pardser.json());
 
 const PORT = process.env.PORT||3000;
 const passport = require('./auth');
+app.use('/employee',employee_router)
 
 app.use(passport.initialize());
 const localAuthmiddleware = passport.authenticate('local',{session:false});
 app.get('/',function(req,res){
     res.send('welcome to our hotel');
 });
-app.use('/employee',employee_router)
+
 app.listen(PORT,()=>{
     console.log.apply("Listening on port")
 })
