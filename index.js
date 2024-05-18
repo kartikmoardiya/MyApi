@@ -8,31 +8,9 @@ app.use(body_pardser.json());
 app.use('/employee',product_router)
 const PORT = process.env.PORT||3000;
 
-const employee = require('./employee');
-const passport = require('passport');
-const LocalStrategy  = require('passport-local').Strategy;
+const passport = require('./auth');
 
-passport.use(new LocalStrategy(async(USERNAME,password,done)=>{
 
-  try{
-      console.log('Received',USERNAME,password);
-      const user = await employee.findOne({username:USERNAME});
-      if(!user){
-          return done(null,false,{message:"Incorrect username"});
-      }
-      const isPasswordMatch = user.password===password?true:false;
-      if(isPasswordMatch){
-          return done(null,user);
-      }
-      else{
-          return done(null,false,{message:"Incorrect Password"})
-      }
-  }
-  catch(err)
-  {
-      return done(err);
-  }
-}))
 
 app.use(passport.initialize());
 const localAuthmiddleware = passport.authenticate('local',{session:false});
