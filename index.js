@@ -8,7 +8,6 @@ app.use(body_pardser.json());
 
 const PORT = process.env.PORT||3000;
 
-app.use('/employee',product_router)
 const employee = require('./employee');
 const passport = require('passport');
 const LocalStrategy  = require('passport-local').Strategy;
@@ -40,6 +39,8 @@ const localAuthmiddleware = passport.authenticate('local',{session:false});
 app.get('/',localAuthmiddleware,function(req,res){
     res.send('welcome to our hotel');
 })
+app.use('/employee',localAuthmiddleware,product_router)
+
 app.listen(PORT,()=>{
     console.log.apply("Listening on port")
 })
