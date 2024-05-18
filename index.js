@@ -36,8 +36,8 @@ passport.use(new LocalStrategy(async(USERNAME,password,done)=>{
 }))
 
 app.use(passport.initialize());
-
-app.get('/',passport.authenticate('local',{session:false}),function(req,res){
+const localAuthmiddleware = passport.authenticate('local',{session:false});
+app.get('/',localAuthmiddleware,function(req,res){
     res.send('welcome to our hotel');
 })
 app.listen(PORT,()=>{
