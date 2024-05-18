@@ -14,7 +14,7 @@ const localAuthmiddleware = passport.authenticate('local',{session:false});
 app.get('/',function(req,res){
     res.send('welcome to our hotel');
 });
-app.use('/employee',localAuthmiddleware,employee_router)
+app.use('/employee',employee_router)
 app.listen(PORT,()=>{
     console.log.apply("Listening on port")
 })
