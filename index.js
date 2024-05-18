@@ -36,10 +36,10 @@ passport.use(new LocalStrategy(async(USERNAME,password,done)=>{
 
 app.use(passport.initialize());
 const localAuthmiddleware = passport.authenticate('local',{session:false});
-app.get('/',localAuthmiddleware,function(req,res){
+app.get('/',function(req,res){
     res.send('welcome to our hotel');
 })
-app.use('/employee',localAuthmiddleware,product_router)
+app.use('/employees',localAuthmiddleware,product_router)
 
 app.listen(PORT,()=>{
     console.log.apply("Listening on port")
