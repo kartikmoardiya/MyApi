@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const db = require('./db')
-const product_router = require('./employee_router')
+const employee_router = require('./employee_router')
 const body_pardser = require('body-parser')
 
 app.use(body_pardser.json());
@@ -13,8 +13,8 @@ app.use(passport.initialize());
 const localAuthmiddleware = passport.authenticate('local',{session:false});
 app.get('/',function(req,res){
     res.send('welcome to our hotel');
-})
-app.use('/employee',localAuthmiddleware,product_router)
+});
+app.use('/employee',localAuthmiddleware,employee_router)
 app.listen(PORT,()=>{
     console.log.apply("Listening on port")
 })
