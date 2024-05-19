@@ -14,7 +14,7 @@ router.post("/signup", async (req, resp) => {
     let data = new employee(req.body);
     let result = await data.save();
 
-    const token = genratetoken(express.response.username);
+    const token = genratetoken(response.username);
     console.log("Token is:",token);
     resp.send({result,token});
   });
