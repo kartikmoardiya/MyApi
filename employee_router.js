@@ -8,7 +8,7 @@ router.get("/",async(req,res)=>{
     const x =await employee.find();
     res.json({x});
 })
-router.post("/create", async (req, resp) => {
+router.post("/signup", async (req, resp) => {
     let data = new employee(req.body);
     let result = await data.save();
     resp.send(result);
