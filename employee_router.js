@@ -15,10 +15,10 @@ router.post("/signup", async (req, resp) => {
       let result = await data.save();
 
       const payload = {
-        id:response.id,
-        username:response.username
+        id: result._id,  // Changed 'response' to 'result' and used '_id' for MongoDB
+        username: result.username
       }
-      const token = genratetoken(payload); // Use req.body.username
+      const token = generateToken(payload); // Corrected the function name
       console.log("Token is:", token);
 
       resp.send({ result, token });
@@ -27,30 +27,31 @@ router.post("/signup", async (req, resp) => {
       resp.status(500).send({ message: "Server error occurred", error: error.message });
   }
 });
-router.post('/login',async(req,res)=>{
+
+router.post('/login', async (req, res) => {
   try {
     // extract username and password from the request body
-    const{username,password} = req.body;
+    const { username, password } = req.body;
 
-    const user = await employee.findOne({username:username});
+    const user = await employee.findOne({ username: username });
 
-    if(!user||(await user.comparePassword(password))){
-      return res.status(401).json({error:"invalid username or password"});
+    if (!user || !(await user.comparePassword(password))) {
+      return res.status(401).json({ error: "Invalid username or password" });
     }
-    // genrate token
-    const payload ={
-      id:user.id,
-      username:user.username
-    }
-    const token = genratetoken(payload);
 
-    res.json({token})
+    // generate token
+    const payload = {
+      id: user._id,  // Use '_id' for MongoDB
+      username: user.username
+    }
+    const token = generateToken(payload); // Corrected the function name
+
+    res.json({ token });
   } catch (err) {
     console.error(err);
-    res.status(500).json({error:"Internal server error"})
+    res.status(500).json({ error: "Internal server error" });
   }
-
-})
+});
 
   router.delete("/delete/:_id", async (req, resp) => {
     let data = await employee.deleteOne(req.params);
