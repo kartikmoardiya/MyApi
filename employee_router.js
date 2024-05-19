@@ -10,17 +10,13 @@ router.get("/",async(req,res)=>{
     res.json({x});
 })
 router.post("/signup", async (req, resp) => {
-  try{
+
     let data = new employee(req.body);
     let result = await data.save();
 
-    const token = genratetoken(response.username);
+    const token = genratetoken(express.response.username);
     console.log("Token is:",token);
-    res.status(200).json({response:response,token:token});
-  }
-  catch(err){
-    res.status(500).json(response);
-  }
+    resp.send({result,token});
   });
   router.delete("/delete/:_id", async (req, resp) => {
     let data = await employee.deleteOne(req.params);
