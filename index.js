@@ -12,7 +12,7 @@ const passport = require('./auth');
 
 app.use(passport.initialize());
 const localAuthmiddleware = passport.authenticate('local',{session:false});
-app.get('/',localAuthmiddleware,function(req,res){
+app.get('/',function(req,res){
     res.send('welcome to our hotel');
 })
 
