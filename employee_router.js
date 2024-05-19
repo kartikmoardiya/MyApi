@@ -10,14 +10,20 @@ router.get("/",async(req,res)=>{
     res.json({x});
 })
 router.post("/signup", async (req, resp) => {
+  try {
+      let data = new employee(req.body);
+      let result = await data.save();
 
-    let data = new employee(req.body);
-    let result = await data.save();
+      const token = genratetoken(req.body.username); // Use req.body.username
+      console.log("Token is:", token);
 
-    const token = genratetoken(response.username);
-    console.log("Token is:",token);
-    resp.send({result,token});
-  });
+      resp.send({ result, token });
+  } catch (error) {
+      console.error("Error occurred during signup:", error);
+      resp.status(500).send({ message: "Server error occurred", error: error.message });
+  }
+});
+
   router.delete("/delete/:_id", async (req, resp) => {
     let data = await employee.deleteOne(req.params);
     resp.send(data);
