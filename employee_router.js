@@ -18,7 +18,7 @@ router.post("/signup", async (req, resp) => {
         id: result._id,  // Changed 'response' to 'result' and used '_id' for MongoDB
         username: result.username
       }
-      const token = generateToken(payload); // Corrected the function name
+      const token = genratetoken(payload); // Corrected the function name
       console.log("Token is:", token);
 
       resp.send({ result, token });
@@ -44,7 +44,7 @@ router.post('/login', async (req, res) => {
       id: user._id,  // Use '_id' for MongoDB
       username: user.username
     }
-    const token = generateToken(payload); // Corrected the function name
+    const token = genratetoken(payload); // Corrected the function name
 
     res.json({ token });
   } catch (err) {
