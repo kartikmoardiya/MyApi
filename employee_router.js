@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express();
 const router = express.Router()
-const {jwtAuthMiddleware,genratetokenl}=require('./jwt'); 
+const {jwtAuthMiddleware,genratetoken}=require('./jwt'); 
 
 const employee = require('./employee');
 
@@ -49,7 +49,7 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-router.get("/",jwtAuthMiddleware,async(req,res)=>{
+router.get('/',jwtAuthMiddleware,async(req,res)=>{
   const x =await employee.find();
   res.json({x});
 })
