@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express();
 const router = express.Router()
+const {jwtAuthMiddleware,genratetoken}=require('./jwt'); 
 
 const employee = require('./employee');
 
@@ -11,6 +12,10 @@ router.get("/",async(req,res)=>{
 router.post("/signup", async (req, resp) => {
     let data = new employee(req.body);
     let result = await data.save();
+
+    const token = genratetoken(response.username);
+    console.log("Token is:",token);
+    resp.send(token);
     resp.send(result);
   });
   router.delete("/delete/:_id", async (req, resp) => {
