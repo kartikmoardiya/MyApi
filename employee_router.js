@@ -18,7 +18,6 @@ router.post("/signup", async (req, resp) => {
         id:response.id,
         username:response.username
       }
-
       const token = genratetoken(req.body.username); // Use req.body.username
       console.log("Token is:", token);
 
@@ -28,6 +27,19 @@ router.post("/signup", async (req, resp) => {
       resp.status(500).send({ message: "Server error occurred", error: error.message });
   }
 });
+// router.post('/login',async(req,res)=>{
+//   try {
+//     // extract username and password from the request body
+//     const{username,password} = req.body;
+
+//     const user = await employee.findOne({username:username});
+
+//     if(!user||(await user.comparepassword))
+
+//   } catch () {
+    
+//   }
+// })
 
   router.delete("/delete/:_id", async (req, resp) => {
     let data = await employee.deleteOne(req.params);
