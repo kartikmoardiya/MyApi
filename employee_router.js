@@ -15,8 +15,7 @@ router.post("/signup", async (req, resp) => {
 
     const token = genratetoken(response.username);
     console.log("Token is:",token);
-    resp.send(token);
-    resp.send(result);
+    resp.send({result,token});
   });
   router.delete("/delete/:_id", async (req, resp) => {
     let data = await employee.deleteOne(req.params);
