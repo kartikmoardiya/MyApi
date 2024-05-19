@@ -15,8 +15,8 @@ router.post("/signup", async (req, resp) => {
       let result = await data.save();
 
       const payload = {
-        id:response.id,
-        username:response.username
+        id:user.id,
+        username:user.username
       }
       const token = genratetoken(req.body.username); // Use req.body.username
       console.log("Token is:", token);
